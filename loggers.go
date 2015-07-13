@@ -20,6 +20,12 @@ type DIWEloggers struct {
 	Error   *log.Logger
 }
 
+func New() *DIWEloggers {
+	logger := new(DIWEloggers)
+	logger.InitLoggers()
+	return logger
+}
+
 func (self *DIWEloggers) InitLoggers() {
 	self.Debug = log.New(ioutil.Discard, "", 0)
 	self.Info = log.New(ioutil.Discard, "", 0)
@@ -41,4 +47,11 @@ func (self *DIWEloggers) SetWarningLogger(logger *log.Logger) {
 
 func (self *DIWEloggers) SetErrorLogger(logger *log.Logger) {
 	self.Error = logger
+}
+
+func (self *DIWEloggers) SetLoggers(loggers *DIWEloggers) {
+	self.Debug = loggers.Debug
+	self.Info = loggers.Info
+	self.Warning = loggers.Warning
+	self.Error = loggers.Error
 }
